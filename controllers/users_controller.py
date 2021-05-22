@@ -32,6 +32,7 @@ def user_login():
     if not user:
         return {"message": "I'm sorry, I can't seem to recall who you are" }, 404
     if bcrypt.check_password_hash(user.password, request.json["password"]):
-        return {"user": user.to_json() }
+        encrypted_id = jwt.encode({"user_id": user.id}, os.environ.get('JWT_SECRET'), algorithm="HS256")
+        return {"user": user.to_json(), "user_id": encrypted_id }
     else:
         return {"message": "Can't seem to recall your password, eh?"}, 401
