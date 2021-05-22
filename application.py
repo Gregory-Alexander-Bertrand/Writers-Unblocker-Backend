@@ -1,14 +1,26 @@
 import os
-from dotenv import load_dotenv
 from flask import Flask, request
+app = Flask(__name__)
+from flask_cors import CORS
+CORS(app)
 import sqlalchemy
+from flask_bcrypt import Bcrypt
+bcrypt = Bcrypt(app)
+import jwt
+import requests
 
+
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
 import models
+from dotenv import load_dotenv
+load_dotenv()
 from routes import apply_routes
 
-load_dotenv()
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
+
+
+
+
+
 models.db.init_app(app)
 
 def root():
