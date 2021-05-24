@@ -36,3 +36,9 @@ def user_login():
         return {"user": user.to_json(), "user_id": encrypted_id }
     else:
         return {"message": "Can't seem to recall your password, eh?"}, 401
+
+def verify_user():
+    user = models.User.query.filter_by(id=request.headers["Authorization"]).first()
+    if not user:
+        return{ "message": "I'm sorry, I can't seem to recall who you are"}, 404
+    return {"user": user.to_json() }
