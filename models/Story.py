@@ -8,7 +8,7 @@ class Story(db.Model):
     prompts_id = db.Column(db.Integer, db.ForeignKey('prompts.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     prompt = db.relationship('Prompt')
-    user = db.relationship('User')
+    user = db.relationship('User', backref='stories')
     def to_json(self):
         return {
             "id": self.id,

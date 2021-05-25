@@ -24,6 +24,11 @@ def stories_delete(id):
     models.db.session.delete(stories)
     models.db.session.commit()
 
+def single_user_stories():
+    user = models.User.query.filter_by(id=request.headers['Authorization']).first()
+    stories = user.stories
+    return { "stories": [s.to_json() for s in stories]}
+
 
 
 
