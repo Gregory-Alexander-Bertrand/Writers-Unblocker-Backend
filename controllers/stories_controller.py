@@ -18,3 +18,12 @@ def create_story():
 def stories_index():
     stories = models.Story.query.all()
     return { "stories": [s.to_json() for s in stories]}
+
+def stories_delete(id):
+    stories = models.Story.query.filter_by(id=id).first()
+    models.db.session.delete(stories)
+    models.db.session.commit()
+
+
+
+
