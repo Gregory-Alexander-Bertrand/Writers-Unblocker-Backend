@@ -6,7 +6,7 @@ class Comment(db.Model):
     body = db.Column(db.String, nullable=False)
     stories_id = db.Column(db.Integer, db.ForeignKey('stories.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    story = db.relationship('Story')
+    story = db.relationship('Story', backref='comments')
     user = db.relationship('User')
 
     def to_json(self):

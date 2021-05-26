@@ -15,5 +15,6 @@ class Story(db.Model):
             "title": self.title,
             "story": self.story,
             "prompts_id": self.prompts_id,
-            "user_id": self.user_id
+            "user_id": self.user_id,
+            "comments": [c.to_json() for c in self.comments]
         }
